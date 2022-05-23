@@ -81,8 +81,17 @@ hr {
   width: 40%;
 }
 
+.inputs {
+  display: grid;
+  grid-template-columns: lfr 3fr;
+}
+
 label {
   font-size: 18px;
+}
+
+input {
+  margin-left: 10px;
 }
 
 input:focus {
@@ -90,9 +99,9 @@ input:focus {
 }
 
 input[type=number] {
-  width: 20%;
-  padding: 2px 5px;
-  box-sizing: border-box;
+  width: 30%;
+  /* padding: 2px 5px; */
+  /* box-sizing: border-box; */
   text-align: center;
 }
 

@@ -26,6 +26,8 @@ class Options {
 function App() {
   const [file, setFile] = useState(null)
   const [preview, setPreview] = useState(null)
+
+  const [filePath, setFilePath] = useState("../images/")
   const [grayscale, setGrayscale] = useState(false)
   const [width, setWidth] = useState(180)
   const [height, setHeight] = useState(80)
@@ -33,6 +35,10 @@ function App() {
   const handleFileUpload = (file) => {
     setFile(file)
     setPreview(URL.createObjectURL(file))
+  }
+
+  const handleFilePath = (e) => {
+    setFilePath(e.target.value)
   }
 
   const handleGrayscale = (e) => {
@@ -50,7 +56,7 @@ function App() {
     }
 
     let dimensions = new Dimensions(Number(width), Number(height));
-    let options = new Options("../images/" + file.name, arr, file.type, grayscale, dimensions);
+    let options = new Options(filePath, arr, file.type, grayscale, dimensions);
 
     invoke('save_img', { options: options });
   }
@@ -85,30 +91,41 @@ function App() {
               </div>
             </div>
             <hr />
-            <div className="grayscale">
-              <input
-                type="checkbox"
-                id="grayscale"
-                onChange={handleGrayscale}
-                checked={grayscale}
-              />
-              <label htmlFor="grayscale">Grayscale</label>
-            </div>
-            <div className="width">
-              <input
-                type="number"
-                value={width}
-                onChange={(event) => setWidth(event.currentTarget.value)}
-              />
-              <label htmlFor="width">Width</label>
-            </div>
-            <div className="height">
-              <input
-                type="number"
-                value={height}
-                onChange={(event) => setHeight(event.currentTarget.value)}
-              />
-              <label htmlFor="height">Height</label>
+            <div className="inputs">
+              <div className="filePath">
+                <label htmlFor="filePath">Path</label>
+                <input
+                  type="text"
+                  id="filePath"
+                  value={filePath}
+                  onChange={handleFilePath}
+                />
+              </div>
+              <div className="grayscale">
+                <label htmlFor="grayscale">Grayscale</label>
+                <input
+                  type="checkbox"
+                  id="grayscale"
+                  onChange={handleGrayscale}
+                  checked={grayscale}
+                />
+              </div>
+              <div className="width">
+                <label htmlFor="width">Width</label>
+                <input
+                  type="number"
+                  value={width}
+                  onChange={(event) => setWidth(event.currentTarget.value)}
+                />
+              </div>
+              <div className="height">
+                <label htmlFor="height">Height</label>
+                <input
+                  type="number"
+                  value={height}
+                  onChange={(event) => setHeight(event.currentTarget.value)}
+                />
+              </div>
             </div>
           </>
         )}
