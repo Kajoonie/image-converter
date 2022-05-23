@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
 import { FileUploader } from 'react-drag-drop-files'
-// import GrayscaleCheckbox from './Grayscale'
 import './App.css'
 import { invoke } from '@tauri-apps/api/tauri'
 
@@ -56,7 +55,7 @@ function App() {
     }
 
     let dimensions = new Dimensions(Number(width), Number(height));
-    let options = new Options(filePath, arr, file.type, grayscale, dimensions);
+    let options = new Options(filePath + file.name, arr, file.type, grayscale, dimensions);
 
     invoke('save_img', { options: options });
   }
