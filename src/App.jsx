@@ -59,103 +59,59 @@ function App() {
     setFile(null);
   }
 
-  function ImagePreview() {
-    return (
-      <img className="preview" src={preview} alt={file.name} />
-    );
-  }
-
-  function SubmitButton() {
-    return (
-      <div className="column">
-        <button id="clearImage" onClick={submitImage}>Submit</button>
-      </div>
-    );
-  }
-
-  function ClearButton() {
-    return (
-      <div className="column">
-        <button id="clearImage" onClick={clearImage}>Clear</button>
-      </div>
-    );
-  }
-
-  function GrayscaleCheckbox() {
-    return (
-      <div className="grayscale">
-        <input
-          type="checkbox"
-          id="grayscale"
-          onChange={handleGrayscale}
-          checked={grayscale}
-        />
-        <label htmlFor="grayscale">Grayscale</label>
-      </div>
-    )
-  }
-
-  function DimensionInput() {
-    return (
-      <>
-        <div className="width">
-          <input
-            type="number"
-            value={width}
-            onChange={(event) => setWidth(event.currentTarget.value)}
-          />
-          <label htmlFor="width">Width</label>
-        </div>
-        <div className="height">
-          <input
-            type="number"
-            value={height}
-            onChange={(event) => setHeight(event.currentTarget.value)}
-          />
-          <label htmlFor="height">Height</label>
-        </div>
-      </>
-    );
-  }
-
-  function View() {
-    return (
-      <>
-        <ImagePreview key="preview" />
-        <div className="row">
-          <SubmitButton />
-          <ClearButton />
-        </div>
-        <hr />
-        <GrayscaleCheckbox key="grayscale" />
-        <DimensionInput />
-      </>
-    );
-  }
-
-  function dropfieldOrImage() {
-    if (!file) {
-      return <FileUploader
-        className="testClass"
-        handleChange={handleFileUpload}
-        name="file"
-        hoverTitle="Gimme gimme!"
-        types={fileTypes}
-      />;
-    } else {
-      return <View />;
-    }
-  }
-
   return (
     <div className="App">
 
       <header className="App-header">
         <h3>Image Converter</h3>
 
-        {
-          dropfieldOrImage()
-        }
+        {file === null ? (
+          <FileUploader
+            className="testClass"
+            handleChange={handleFileUpload}
+            name="file"
+            hoverTitle="Gimme gimme!"
+            types={fileTypes}
+          />
+        ) : (
+          <>
+            <img className="preview" src={preview} alt={file.name} />
+            <div className="row">
+              <div className="column">
+                <button id="clearImage" onClick={submitImage}>Submit</button>
+              </div>
+              <div className="column">
+                <button id="clearImage" onClick={clearImage}>Clear</button>
+              </div>
+            </div>
+            <hr />
+            <div className="grayscale">
+              <input
+                type="checkbox"
+                id="grayscale"
+                onChange={handleGrayscale}
+                checked={grayscale}
+              />
+              <label htmlFor="grayscale">Grayscale</label>
+            </div>
+            <div className="width">
+              <input
+                type="number"
+                value={width}
+                onChange={(event) => setWidth(event.currentTarget.value)}
+              />
+              <label htmlFor="width">Width</label>
+            </div>
+            <div className="height">
+              <input
+                type="number"
+                value={height}
+                onChange={(event) => setHeight(event.currentTarget.value)}
+              />
+              <label htmlFor="height">Height</label>
+            </div>
+          </>
+        )}
 
       </header>
     </div>
